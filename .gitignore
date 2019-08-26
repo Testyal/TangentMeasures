@@ -1,0 +1,15 @@
+*.aux
+*.bbl
+*.blg
+*.log
+*.gz
+*.jpg
+*.bcf
+*.out
+*.xml
+*.toc
+dissertation_plan.tex
+tangent_measures
+tangent_measures_old_Jan22
+tangent_measures_old_Jan24
+warwick_dissertation_template

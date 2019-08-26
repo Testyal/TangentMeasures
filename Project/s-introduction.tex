@@ -1,0 +1,24 @@
+Given a smooth submanifold $M \subseteq \bbR^d$, we know how its tangent space $T_pM$ at a point $p \in M$ is defined, and what it represents. Namely, $T_p M$ should represent the ``best linear approximation'' to $M$ near $p$, much like the derivative of a differentiable function represents its best linear approximation near a point. Although $T_p M$ is usually defined via quite abstract methods, the situation of being a subset of Euclidean space allows us to interpret $T_p M$ in the very concrete sense of ``zooming in'' to $p$, or ``blowing up'' the manifold $M$ around $p$. Such a procedure is applicable to far more general subsets of $\bbR^d$, and can often lead to more interesting results than a simple vector space. Typically, this ``tangent cone'' is denoted $\Tan(M,p)$ See figure \ref{fig:blowingUpCorner} for an example of a set whose tangent cone at a point is not an affine subspace of $\bbR^d$.
+
+It turns out that this blowup procedure applies to measures on $\bbR^d$, and is related to blowing up subsets of $\bbR^d$ in the sense that if $M \subseteq \bbR^d$ is an $m$-dimensional submanifold of $\bbR^d$, blowing up the $m$-dimensional Hausdorff  measure on $M$ (which we denote $\scrH^m \restrict M$) at a point $p \in M$ gives us $\scrH^m \restrict T_pM$. In section \ref{sec:submanifolds}, we will see this in a more rigorous setting. Now, measures on $\bbR^d$ are far more numerous than subsets of $\bbR^d$, so we would like to ask how much worse can this blowup procedure for measures be compared to blowing up subsets of $\bbR^d$? It turns out that the answer is ``a lot worse''. In the following project, we will demonstrate the existence of a measure on $\bbR^d$ such that, at almost every point in its support,, we can adjust the speed of blowing up to give us any measure imaginable on $\bbR^d$. As somewhat of a converse, we will also construct a measure on $\bbR$ which looks completely unlike Lebesgue measure on $\bbR$ (think a countable sum of $\delta$ measures), but blowing up at almost every point in its support returns Lebesgue measure.
+
+\begin{figure} \label{fig:blowingUpCorner}
+    \centering
+    \begin{tikzpicture}
+        %\draw[gray] (-1,-1) grid (10,3);
+
+        \draw[blue] (0,1) node[left,color=black] {$p$} .. controls (1.25,1.25) and (1.75,1.75) .. (1.5,2.5);
+        \filldraw[red] (0,1) circle (0.05);
+        \draw[blue] (0,1) .. controls (0.25,0.25) and (1,0) .. (2,0);
+        %\draw[red] (0,1) circle (0.25);
+        \node (M) at (1,-0.5) {$M$}; 
+
+        \draw[->] (2.5,1) -- (3.25,1) node[align=center,above] {blowup} -- (4,1);
+
+        \draw[blue] (4.5,1.5) -- (6,2.0);
+        \draw[blue] (4.5,1.5) -- (5.25,0);
+        \node (TpM) at (5,-0.5) {$\Tan(M,p)$};
+    \end{tikzpicture}
+
+    \caption{Blowing up a corner}
+\end{figure}

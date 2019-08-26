@@ -1,0 +1,71 @@
+Fix the dimension $d \in \bbN$. We denote by $\scrM(\bbR^d)$ the set of all locally finite Radon measures on $\bbR^d$. That is, if $\mu \in \scrM(\bbR^d)$, then $\mu$ is defined on Borel subets of $\bbR^d$, $\mu$ is finite on compact subsets of $\bbR^d$, and for all Borel $A \subseteq \bbR^d$, we have
+\begin{equation}
+    \mu(A) = \sup\set{\mu(K) : K \subseteq A \text{ compact}} = \inf\set{\mu(U) : U \supseteq A \text{ open}}
+\end{equation}
+Given $\mu \in \scrM(\bbR^d)$ and a Borel set $A \subseteq \bbR^d$, we write $\mu \restrict A$ for the restriction of $\mu$ to $A$. That is, $(\mu \restrict A)(B) := \mu(A \cap B)$ for any Borel $B \subseteq \bbR^d$.
+
+The following theorem on differentiation of measures will be useful when we consider the Preiss measure:
+\begin{theorem}[Besicovitch] \label{thm:besicovitch}
+    Let $\mu,\nu \in \scrM(\bbR^d)$ be Radon measures. Then for $\nu$-a.e. $p \in \bbR^d$, the limit
+    \begin{equation}
+        \frac{\d\mu}{\d\nu}(p) := \lim_{r \downarrow 0} \frac{\mu(B(p,r))}{\nu(B(p,r))}
+    \end{equation}
+    exists and is finite for $\nu$-a.e. $p \in \bbR^d$. Furthermore, we may decompose
+    \begin{equation}
+        \mu = \frac{\d\mu}{\d\nu} \nu + \mu^s,
+    \end{equation}
+    where $\mu^s = \mu \restrict E$, and 
+    \begin{equation}
+        E := (\bbR^d \setminus \supp{\nu}) \cup \set{ p \in \supp{\nu} : \lim_{r \downarrow 0} \frac{\mu(B(p,r))}{\nu(B(p,r))} = \infty }
+    \end{equation}
+    is the \textit{singular set} of $\mu$.
+\end{theorem}
+
+Write $C_c(\bbR^d)$ for the space of all continuous functions with compact support on $\bbR^d$. A natural notion of convergence in this space is to say that $\phi_k \rightarrow \phi$ in $C_c(\bbR^d)$ if there exists a compact set $K \subseteq \bbR^d$ with $\supp{\phi_k} \subseteq K$ for all $k$, $\supp{\phi} \subseteq K$, and $\norm{\phi_k - \phi}_{L^\infty(\bbR^d)} \rightarrow 0$ as $k \rightarrow \infty$.  The \textit{Riesz representation theorem} says that given a positive linear functional $f$ on $C_c(\bbR^d)$ which is continuous with respect to this notion of convergence, then there exists $\mu \in \scrM(\bbR^d)$ such that 
+\begin{equation}
+    \left\langle f, \phi \right\rangle = \int_{\bbR^d} \phi \; \d\mu
+\end{equation}
+for all $\phi \in C_c(\bbR^d)$. As a corollary, we can define a measure simply by specifying its action on elements of $C_c(\bbR^d)$. In particular, this means that $\scrM(\bbR^d)$ inherits a natural notion of convergence. Namely, we say that a sequence $\mu_j \in \scrM(\bbR^d)$ \textit{converges weakly*} to $\mu$ in $\scrM(\bbR^d)$, and we write $\mu_j \weakstar \mu$, if
+\begin{equation}
+    \int_{\bbR^d} \phi \; \d\mu_k \rightarrow \int_{\bbR^d} \phi \; \d\mu \text{ for all } \phi \in C_c(\bbR^d).
+\end{equation}
+
+{\color{red} these examples are probably unnecessary}
+\begin{example}
+    Here are two examples of weak* convergence in $\scrM(\bbR^d)$.
+    \begin{enumerate}[label=(\arabic*)]
+        \item Define $\mu_j := j^{-1} \scrL^d$ for $j \in \bbN$. Then, for $\phi \in C_c(\bbR^d)$, we have
+            \begin{equation}
+                \abs{\int_{\bbR^d} \phi \; \d \mu_j} \leq \frac{1}{j} \int_{\bbR^d} \abs{\phi} \; \d\scrL^d = \frac{1}{j} \norm{\phi}_{L^1(\bbR^d)} \rightarrow 0.
+            \end{equation}
+            Therefore $\mu_j \weakstar 0$ in $\scrM(\bbR^d)$.
+        
+        \item Define the sequence $\mu_j := \sin(2 \pi j x) \; \d\scrL^1(x)$ for $j \in \bbN$. Then, for $\phi \in C_c(\bbR^d)$, we have
+            \begin{equation} \begin{aligned}
+                \int_{\bbR} \phi \; \d \mu_j &= \int_{\bbR} \phi(x) \sin(2\pi j x) \; \d x                                                                     \\
+                                               &= \frac{1}{2} \int_{\bbR} \phi(x) \left[\sin(2\pi j x) - \sin\left(2\pi j \left(x - \frac{1}{2j}\right)\right)      \right] \; \d x \\
+                                               &= \frac{1}{2} \int_\bbR \left[ \phi(y) - \phi\left(y + \frac{1}{2j}\right)\right] \sin(2 \pi j y) \; \d x      \\
+                                               &\rightarrow 0 \text{ as } n \rightarrow \infty.
+            \end{aligned} \end{equation}
+            So $\mu_j \weakstar 0$. This example is a little more abstract than the previous one, since there is no clear notion of ``size'' for this sequence of measures (whereas those of the previous example had a factor of $j^{-1}$). However, the sequence $\phi(x) \sin(2\pi jx)$ can be thought of as versions of $\phi$ which oscillate faster and faster, so that as $j \rightarrow \infty$, the oscillations should cancel out upon integrating.
+    \end{enumerate}
+\end{example}
+
+We now list some important properties of weak* convergence. {\color{red} find references for proofs}
+\begin{lemma} \label{lem:equivalentDefinitionOfWeak*Convergence}
+    Given $\mu, \mu_j \in \scrM(\bbR^d)$, we have that $\mu_j \weakstar \mu$ if and only if $\int_{\bbR^d} f \, \d{\mu_j} \to \int_{\bbR^d} f \, \d{\mu}$ for all nonnegative Lipschitz functions $f$ on $\bbR^d$ with compact support and with Lipschitz constant at most 1.
+\end{lemma}
+We will write $\Lip_{\leq 1}(\bbR^d)$ for the set of all nonnegative Lipschitz functions $f$ on $\bbR^d$ with compact support and with Lipschitz constant at most 1.
+\begin{lemma} \label{lem:semicontinuityOfWeak*Convergence}
+    Let $\mu_j \in \scrM(\bbR^d)$ be a sequence of measures converging weakly* to $\mu \in \scrM(\bbR^d)$. Then for all open sets $U \subseteq \bbR^d$, we have 
+    \begin{equation}
+        \mu(U) \leq \liminf_{j \to \infty} \mu_j(U),
+    \end{equation}
+    and for all compact sets $K \subseteq \bbR^d$, we have 
+    \begin{equation}
+        \mu(K) \geq \limsup_{j \to \infty} \mu(K).
+    \end{equation}
+\end{lemma}
+\begin{lemma} \label{lem:metrizabilityofWeak*Convergence}
+    There exists a separable and complete metric $d$ on $\scrM(\bbR^d)$ which generates the topology of weak* convergence.
+\end{lemma}

@@ -1,0 +1,134 @@
+\subsection{Blowing up and Tangent Measures} \label{sec:blowingUp}
+To formalize the notion of ``blowing up'' a measure, fix $p \in \bbR^d$ and $r > 0$. Define the homothety $T^{p,r} \colon \bbR^d \to \bbR^d$ by 
+\begin{equation}
+    T^{p,r}(x) := \frac{x - p}{r}.
+\end{equation}
+Under this map, the ball $B(p,r)$ gets mapped to $B(0,1)$ (See figure \ref{fig:homothety}). Given $\mu \in \scrM(\bbR^d)$, we define the \textit{pushforward} $\mu_{p,r} = T^{p,r}_*\mu$ of $\mu$ by
+\begin{equation}
+    \mu_{p,r}(A) = \mu((T^{p,r})^{-1}(A)) = \mu(p + rA) \quad \text{for } A \subseteq \bbR^d \text{ a Borel set.}
+\end{equation}
+Suppose now there exists a sequence $r_j > 0$ with $r_j \downarrow 0$ as $j \rightarrow \infty$ and sequence $c_j > 0$ of normalizing constants such that $c_j \mu_{p,r_j}$ converges weakly* to some $\tau \in \scrM(\bbR^d)$. We then call $\tau$ a \textit{tangent measure} to $\mu$ at $p$, and $c_j \mu_{p,r_j}$ a \textit{blowup sequence} for $\tau$. We write $\Tan(\mu,p)$ for the set of all tangent measures to $\mu$ at $p$.
+
+\begin{figure} 
+    \centering
+    \begin{tikzpicture}
+        %\draw[gray] (0,0) grid (10,5);
+
+        \node[anchor = south west] (mona) at (1,1) {\includegraphics[height=3cm]{monaLisa.jpg}};
+        \draw[red, thick] (2.3,3.5) circle (0.2);
+        \node (monazoom) at (8.1,2.6) {\includegraphics[height=3cm]{monaLisaZoom.jpg}};
+        \draw[red,thick] (8,2.3) circle (0.8);
+
+        \draw[->] (4,2.5) to[out=30,in=150] (6,2.5);
+        \node (T) at (5,3.1) {$T^{p,r}$};
+    \end{tikzpicture}
+    \caption{The homothety $T^{p,r}$.}
+    \label{fig:homothety}
+\end{figure}
+
+We remark that the above definition does not need $\mu$ or $\tau$ to be positive measures at all, and works perfectly well for signed (or even vector-valued) measures.
+
+The structure of $\Tan(\mu,p)$ is of some interest, and we will be making use of the following lemma later.
+\begin{lemma} \label{lem:tangent_measure_properties}
+    Fix $\mu \in \scrM(\bbR^d)$ and $p \in \bbR^n$. Suppose $\tau \in \Tan(\mu,x_0)$. Then
+    \begin{enumerate}[label={\rm (\alph*)}]
+        \item For all $c > 0$, the measure $c\tau$ is in $\Tan(\mu,p)$.
+        \item For all $r > 0$, the measure $\tau_{0,r}$ is in $\Tan(\mu,p)$.
+        \item The set $\Tan(\mu,p)$ is closed in $\scrM(\bbR^d)$ (with respect to the weak* topology). 
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Let $c_j \mu_{p,r_j}$ be a blowup sequence for $\tau$. Then $c c_j \mu_{p,r_j}$ is a blowup sequence for $c\tau$, which can be easily checked. Similarly, $c_j \mu_{p,rr_j}$ is a blowup sequence for $\tau_{0,r}$. Indeed, given $\psi \in C_c(\bbR^d)$, we have
+    \begin{equation}
+        \int_{\bbR^d} c_j \phi \; \d{\mu_{p,rr_j}} = \int_{\bbR^d} c_j \phi\left( \frac{1}{r}\frac{x-p}{r_j} \right) \; \d{\mu(x)}
+                                           \rightarrow \int_{\bbR^d} \phi\left( \frac{x}{r} \right) \; \d{\tau(x)}
+                                                     = \int_{\bbR^d} \phi \; \d{\tau_{0,r}}.
+    \end{equation}
+    This proves (a) and (b).
+
+    To prove (c), let $d$ be a metric on $\scrM(\bbR^d)$ generating the weak* topology (see lemma \ref{lem:metrizabilityofWeak*Convergence}).
+    Let $\tau^{(n)}$ be a sequence in $\Tan(\mu,p)$ converging to $\tau \in \scrM(\bbR^d)$, and take a blowup sequence $c_j^{(n)}\mu_{p,r_j^{(n)}}$ for each $n \in \bbN$. We need to find a blowup sequence $\overline{c}_j \mu_{p,\overline{r}_j}$ converging to $\tau$.
+    
+    We do this construction inductively. Initially, take $n_1 = j_1 = 1$. Given $m \in \bbN$, assume that $n_{m-1}$ and $j_{m-1}$ have been found, and choose $j_m > j_{m-1}$ such that $d(\tau^{(n_m)},\tau) < \frac{1}{2m}$, and $j_m > j_{m-1}$ such that $d(c_{j_m}^{(n_m)}\mu_{p,r_{j_m}^{(n_m)}},\tau^{(n_m)}) < \frac{1}{2m}$ and $r_{j_m}^{(n_m)} < \min\left( r_{j_{m-1}}^{(n_{m-1})},\frac{1}{m} \right)$ (which is always possible since $r_j^{(n_m)} \downarrow 0$ as $j \to \infty$ by definition of a blowup sequence). Define $\overline{c}_m := c^{(n_m)}_{j_m}$ and $\overline{r}_m := r^{(n_m)}_{j_m}$. Then 
+    \begin{equation}
+        d(\overline{c}_m \mu_{p,\overline{r}_m}, \tau) \leq d(\overline{c}_m \mu_{p,\overline{r}_m}, \tau^{(j_m)}) + d(\tau^{(j_m)},\tau)
+                                                          < \frac{1}{2m} + \frac{1}{2m}
+                                                          = \frac{1}{m},
+    \end{equation}
+    which shows that $\overline{c}_m \mu_{p,\overline{r}_m} \weakstar \tau$ as $m \to \infty$. By construction, we have that $\overline{r}_m \downarrow 0$ as $m \to \infty$, and so $\overline{c}_m \mu_{p,\overline{r}_m}$ is a legitimate blowup sequence for $\tau$. It follows that $\tau \in \Tan(\mu,p)$, thereby proving (c).
+\end{proof}
+In the language of [Preiss], properties (a) and (b) of the above lemma say $\Tan(\mu,p)$ is a $d$-cone. In general, $\Tan(\mu,p)$ is not a vector space.
+
+The above lemma will help us to show that the normalizing constants $c_j$ aren't so important. Indeed, suppose $c_j \mu_{p,r_j}$ is a blowup sequence for $\tau \in \Tan(\mu,p)$. Let $K > 0$ be such that $\tau(B(0,K)) > 0$, and define $\widetilde{c}_j := \mu(B(p,Kr_j))^{-1}$. Then by semicontinuity (lemma \ref{lem:semicontinuityOfWeak*Convergence}),
+\begin{equation} \begin{aligned}
+    0 < \tau(B(p,K)) &\leq \liminf_{j \to \infty} c_j \mu_{p,r_j}(B(0,K)) \\
+                     &= \liminf_{j \to \infty} c_j \mu(B(p,Kr_j)) \\
+                     &\leq \limsup_{j \to \infty} c_j \mu(\overline{B(p,Kr_j)}) \\
+                     &= \limsup_{j \to \infty} c_j \mu_{p,r_j}(\overline{B(0,K)}) \\
+                     &\leq \tau(\overline{B(0,K)}) < \infty,
+\end{aligned} \end{equation}
+since $\tau$ is a Radon measure. Pass to a subsequence such that $c_j\mu(B(p,Kr_j))$ converges to a positive value $c$. It follows that 
+\begin{equation}
+    \widetilde{c}_j \mu_{p,r_j} = \frac{\widetilde{c}_j}{c_j} c_j \mu_{p,r_j} \weakstar c \tau.
+\end{equation}
+So $\widetilde{c}_j \mu_{p,r_j}$ is a blowup sequence for $c \tau$. Dividing by $c$, we see $c^{-1}c_j \mu_{p,r_j}$ is a blowup sequence for $\tau$.
+
+Another simple property of $\Tan(\mu,p)$ is that it is nonempty: we can take $c_j = 0$ for all $j$ to see that $0$ is a tangent measure to any $\mu$ at any point $p \in \bbR^d$. Is $\Tan(\mu,p)$ nonzero in general? It turns out that it is for $\mu$-a.e. $p \in \bbR^d$ - see {\bf [Rindler prop 10.5]} for a proof.
+
+\subsection{Examples of Tangent Measures and their Local Properties} \label{sec:examplesAndLocal}
+Fix $p \in \bbR^d$. Consider $\mu = \scrL^d$, and fix $\phi \in C_c(\bbR^d)$. Then
+\begin{equation} \begin{aligned}
+    \int_{\bbR^d} \phi \; \d(r^d \mu_{p,r}) &= \int_{\bbR^d} \phi\left( \frac{x-p}{r} \right) r^d \; \d\scrL^d(x) \\
+                                                &= \int_{\bbR^d} \phi(y) r^d r^{-d} \; \d\scrL^d(y)                     \\
+                                                &= \int_{\bbR^d} \phi \; \d\scrL^d,
+\end{aligned} \end{equation}
+where we made the change of variables $y = r^{-1}(x-p)$. It follows that for any sequence $r_j \downarrow 0$, the sequence $r_j^{-d} \mu_{x_0,r_j}$ is a blowup sequence for $\scrL^d$, and therefore $\scrL^d$ is a tangent measure to itself at $p$
+
+More generally, let $f \in C(\bbR^d)$ be nonnegative, define $\mu = f \scrL^d$, and fix $\phi \in C_c(\bbR^d)$. Similarly to above, we find 
+\begin{equation} \begin{aligned}
+    \int_{\bbR^d} \phi \; \d(r^{-d} \mu_{p,r}) &= \int_{\bbR^d} \phi\left( \frac{x-p}{r} \right) f(x) r^{-d} \; \d\scrL^d(x) \\
+                                                    &= \int_{\bbR^d} \phi(y) f(p + ry) \; \d\scrL^d(y)                            \\
+                                                    &\rightarrow \int_{\bbR^d} \phi(y) f(p) \; \d\scrL^d(y).
+\end{aligned} \end{equation}
+Where we again made the change of variables $y = r^{-1}(x-x_0)$, and used the dominated convergence theorem together with the fact that $\phi$ and $f$ are continuous functions, and $\phi$ has compact support. We see that $f(p) \scrL^d$ is a tangent measure to $f \scrL^d$ at $p$.
+
+The above situation is true for far more measures than just Lebesgue measure. Let $f \in C(\bbR^d)$ be nonnegative, fix $\mu \in \scrM(\bbR^d)$, and consider the measure $f\mu$. Fix $\phi \in C_c(\bbR^d)$, and let $R > 0$ be such that $\supp{\phi} \subseteq B(0,R)$. Choose a tangent measure $\tau \in \Tan(\mu,p)$ and a blowup sequence $c_j \mu_{p,r_j}$ for $\tau$. Then 
+\begin{equation} \begin{aligned}
+    \int_{\bbR^d} c_j \phi \;\d(f\mu)_{p,r_j} &= \int_{\bbR^d} c_j \phi\parens{\frac{x-p}{r_j}} f(x) \; \d\mu(x) \\
+                                                &= \int_{\bbR^d} c_j \phi\parens{\frac{x-p}{r_j}} f(p) \; \d\mu(x) \\
+                                                &\quad + \int_{\bbR^d} c_j \phi\parens{\frac{x-p}{r_j}} ( f(x) - f(p) ) \; \d\mu(x).
+\end{aligned} \end{equation}
+The first term converges to
+\begin{equation}
+    \int_{\bbR^d} \phi(x) f(p) \; \d\tau(x).
+\end{equation}
+For the second term, note that $x \mapsto \phi\parens{\frac{x-p}{r_j}}$ is supported in $B(p, Rr_j)$, so the magnitude of the second term is bounded by some constant (independent of $x$ and $r_j$) times
+\begin{equation}
+    \sup_{x \in B(p,Rr_j)} \abs{f(x) - f(p)}.
+\end{equation}
+Now, $f$ is uniformly continuous on $B(p,R)$, so this term converges to zero as $j \to \infty$. It follows that $f(p) \tau$ is a tangent measure to $f\mu$ at $p$. In particular, $f(p)\Tan(\mu,p) \subseteq \Tan(f\mu,p)$
+
+We would now like to show the converse inclusion holds: if $\tau$ is a tangent measure to $f\mu$ at $p$, then $\tau = f(p) \widetilde{\tau}$ for some $\widetilde{\tau} \in \Tan(\mu,p)$. Let $c_j (f\mu)_{p,r_j}$ be a blowup sequence for $\tau$. Then, for all $\phi \in C_c(\bbR^d)$, we have 
+\begin{equation} \begin{aligned}
+    \int_{\bbR^d} \phi \; \d\tau &= \lim_{j \to \infty} \int_{\bbR^d} \phi \; \d(c_j (f \mu)_{p,r_j}) \\
+                                 &= \lim_{j \to \infty} \int_{\bbR^d} c_j \phi\parens{ \frac{x-p}{r_j} } f(x) \; \d\mu(x) \\
+                                 &= \lim_{j \to \infty} \int_{\bbR^d} c_j \phi\parens{ \frac{x-p}{r_j} } f(p) \; \d\mu(x) \\
+                                 &\quad + \lim_{j \to \infty} \int_{\bbR^d} c_j \phi\parens{ \frac{x-p}{r_j} } (f(x) - f(p)) \; \d\mu(x).
+\end{aligned} \end{equation}
+The same argument as above implies the second term is zero. If $f(p) > 0$, take $\widetilde{\tau} = f(p)^{-1} \tau$. We then see that $\widetilde{\tau}$ is a tangent measure to $\mu$ at $p$ with blowup sequence $c_j \mu_{p,r_j}$. If $f(p) = 0$, it follows immediately that $\tau = 0$, so we can take $\widetilde{\tau}$ to be any tangent measure of $\mu$ (for example, $\widetilde{\tau} = 0$). We have shown that $\Tan(f\mu,p) = f(p)\Tan(\mu,p)$.
+
+By an approximation argument, it can be shown that for any $f \in L^1(\bbR^d)$ and $\mu$-a.e. $p \in \bbR^d$, the property $\Tan(f\mu,p) = f(p) \Tan(\mu,p)$ is true {\bf [de lellis]}. In particular, for any Borel measurable subset $A \subseteq \bbR^d$ containing $p$, we can take $f = \bbone_A$ to show that $\Tan(\mu \restrict A,p) = \Tan(\mu,p)$ for $\mu$-a.e. $p \in A$. This property captures the intuition that tangent measures should be a local property of measures.
+
+%The following example is a baby version of the O'Neil measure we consider later. Set $s_i := 2^{-i+1}$ and $\widetilde{s}_i := -3^{-i+1}$ for $i \in \bbN$. Define 
+%\begin{equation}
+%    \mu := \sum_{i=1}^\infty \frac{\delta_{s_i} + \delta_{\widetilde{s}_i}}{2^i}.
+%\end{equation}
+%Fix $\phi \in C_c(\bbR)$ as usual. For $r_j = s_j$, we have 
+%\begin{equation} \begin{aligned}
+%    \int_{\bbR} \phi \; \d(2^j\mu_{0,r_j}) &= \int_{\bbR} \phi\left( \frac{x}{r_j} \right) 2^j \; \d\mu                                               \\
+%                                            &= \sum_{i=1}^\infty 2^{j-i} \left( \phi\left( \frac{s_i}{r_j} \right) + \phi\left( \frac{\widetilde{s}_i}{r_j} \right) \right) \\
+%                                            &= \sum_{i=1}^\infty 2^{j-i} \left( \phi(2^{j-i}) + \phi\left( -\frac{3^{-i+1}}{2^{-j+1}} \right) \right)
+%\end{aligned} \end{equation}
+%Suppose $\phi$ has support in $[-K,K]$. Then, for all $i_0 \in \bbN$, there exists $j \in \bbN$ such that $2^{j-i} > K$ and $-2^{j-1} 3^{-j+1} < -K$ for all $i \leq i_0$. So by continuity, all {\color{red} finish (can I actually finish?)}
+
+

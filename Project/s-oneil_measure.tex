@@ -1,0 +1,238 @@
+\subsection{Measures with Stranger Tangent Measures}
+
+In the previous chapter on rectifiability, we saw examples of measures whose tangent measures are well-behaved. In particular, all tangent measures $\tau$ we saw satisfied (at least almost everywhere)
+\begin{equation}
+    \tau(B(p,r)) = r^\alpha \tau(B(p,1))
+\end{equation}
+for some $\alpha > 0$. Such measures are called $\alpha$-\textit{uniform}. In this chapter, we will demonstrate that this property is not uniform (haha) among all tangent measures. First, for any arbitrary measure $\tau$ and a point $p \in \bbR^d$, we will define a measure $\mu$ which has $\tau$ as a tangent measure at $p$.
+
+Fix $\tau \in \scrM(\bbR^d)$ and $p \in \bbR^d$. We will show there exists $\mu \in \scrM(\bbR^d)$ with $\tau \in \Tan(\mu,p)$. Fix $\epsilon \in (0,1)$, set $s_1 := 1$, and inductively define $s_j := \epsilon^j s_{j-1}$. Define $\mu \in \scrM(\bbR^d)$ by
+\begin{equation}
+    \int_{\bbR^d} \phi \; \d\mu := \int_{\bbR^d} \phi\parens{ \sum_{i=1}^\infty x s_i } \; \d\tau(x) \quad \text{for all } \phi \in C_c(\bbR^d).
+\end{equation}
+We then have 
+\begin{equation}
+    \int_{\bbR^d} \phi \; \d\mu_{p,s_j} = \int_{\bbR^d} \phi\parens{ \sum_{i=1}^\infty (x - p)\frac{s_i}{s_j} } \; \d\tau.
+\end{equation}
+The terms in the sum with $j > i$ become arbitrary large (on the order of at least $\epsilon^{-j}$) as $j \to \infty$. Similarly, the terms in the sum with $j < i$ become arbitrarily small (on the order of at most $\epsilon^{j+1}$ as $j \to \infty$. By continuity and compact support of $\phi$, we may take $j \to \infty$ to see that this converges to
+\begin{equation}
+    \int_{\bbR^d} \phi \; \d\tau.
+\end{equation}
+Therefore $\tau$ is a tangent measure to $\mu$ at $p$. 
+
+\subsection{The O'Neil Measure}
+All measures we have constructed so far have had unique tangent measures up to multiplication. Do there exist measures $\mu$ such that $\Tan(\mu,p)$ contains distinct tangent measures for some point $p \in \bbR^d$? There certainly are - example 14.2(3) in \textbf{[Mattila]} is one. In this section, we will construct a measure $\mu$ such that $\Tan(\mu,p)$ at $\mu$-a.e. point $p \in \bbR^d$ is all of $\scrM(\bbR^d)$. Naturally, this is the worst it can possibly be, although we will see later on that this is not actually uncommon for Radon measures. 
+
+The following theorem was introduced by Toby O'Neil in \textbf{[O'Neil]}, and the proof will follow his method.
+\begin{theorem}[O'Neil] \label{thm:oneil}
+    Fix $d \in \bbN$. There exists a Radon measure $\mu \in \scrM(\bbR^d)$ such that for $\mu$-a.e. $p \in \bbR^d$, we have $\Tan(\mu,p)$.
+\end{theorem}
+\begin{proof}
+    Define the set $\scrS \subseteq \scrM(\bbR^d)$ to be the set of convex linear combinations of Dirac measures $\delta_x$ for $x \in \bbQ^d \cap B(0,1)$, with $\delta_0$ always included in the convex linear combination. That is,
+    \begin{equation} \label{eq:setOfMeasuresForOneilMeasure}
+        \scrS := \left\{ \alpha_0 \delta_0 + \sum_{i=1}^N \alpha_i \delta_{x_i} \;\middle|\;
+        \begin{aligned} 
+            &N \in \bbN, \alpha_i \in \bbQ \cap (0,1), \sum_{i=0}^N \alpha_i = 1, \\
+            &x_i \in \bbQ^d \cap B(0,1), x_i \neq x_j \text{ for } i \neq j 
+        \end{aligned}
+        \right\}.
+    \end{equation}
+    We show that the set $\{ p\nu_{0,q} : p,q \in \bbQ^+, \nu \in \scrS \}$ is weakly* dense in $\scrM(\bbR^d)$. First, note that the set of measures with compact support in $\scrM(\bbR^d)$ is dense in $\scrM(\bbR^d)$. This can be shown, for example, by considering the compactly supported measures $\mu \restrict B(0,N)$ for $N \in \bbN$. 
+    Fix, therefore, a compactly supported $\mu \in \scrM(\bbR^d)$. Given $m \in \bbN$, let $\scrQ_m$ be the family of half-open cubes in $\bbR^d$ with side length $\frac{1}{m}$ congruent to $Q_0 = [-\frac{1}{2m},\frac{1}{2m})$. Let $x_Q$ be the midpoint of $Q \in \scrQ_m$. Certainly, we have that
+    \begin{equation} \label{eq:riemsum}
+        \begin{aligned}
+            \abs{ \int_{\bbR^d} f \, \d{\mu} - \sum_{Q \in \scrQ_m} f(x_Q)\mu(Q) } 
+            &= \abs{ \int_{\bbR^d} f - \sum_{Q \in \scrQ_m} f(x_Q) \mathbbm{1}_Q \, \d{\mu} } \\
+            &\leq \int_{\bbR^d} \sum_{Q \in \scrQ_m} \abs{ f(x) - f(x_Q) } \mathbbm{1}_Q(x) \, \d{\mu(x)} \\
+            &\leq \int_{\bbR^d} \sum_{Q \in \scrQ_m} \abs{x-x_Q} \mathbbm{1}_Q(x) \, \d{\mu(x)} \\
+            &\rightarrow 0 \text{ as } m \to \infty
+        \end{aligned}
+    \end{equation}
+    for all Lipschitz $f$ with compact support and with Lipschitz constant at most 1. The latter integral converges to 0 by the dominated convergence theorem, since $\mu$ has compact support.
+    Fix $\epsilon > 0$, and choose $m_0 \in \bbN$ such that $m \geq m_0$ implies 
+    \begin{equation} \label{m0definition}
+        \abs{ \int_{\bbR^d} f \, \d{\mu} - \sum_{Q \in \scrQ_m} f(x_Q)\mu(Q) } < \epsilon
+    \end{equation}
+    for all $f \in \Lip_{\leq 1}(\bbR^d)$. Such a choice is possible by \eqref{eq:riemsum}.
+    Since $\mu$ has compact support, there exists $N \in \bbN$ such that $\mu(Q) = 0$ whenever $Q \cap B(0,N) = \emptyset$, so that 
+    \begin{equation} 
+        \sum_{Q \in \scrQ_m} f(x_Q)\mu(Q) = \sum_{\substack{Q \in \scrQ_m \\ Q \cap B(0,N) \neq \emptyset}} f(x_Q)\mu(Q)
+    \end{equation}
+    Write $\widetilde{\scrQ}_m = \{ Q \in \scrQ_m : Q \cap B(0,N) \neq \emptyset \}$.
+    Next, index the elements $Q_i$ of $\scrQ_m$ by $i \in \bbN \cup \{0\}$, with $Q_0$ being the cube centered at 0 as above. For each $i \in \bbN \cup \{0\}$, let $p_{Q_i} \in \bbQ^+$ be such that $\abs{ \mu(Q_i) - p_{Q_i} } < \frac{\epsilon}{2^{i+1}}$. In particular, if $Q_i \notin \widetilde{\scrQ}_m$, we can set $p_{Q_i} = 0$. We must, however, have that $p_{Q_0} > 0$. Similarly, for each $i \in \bbN \cup \{0\}$, let $x_{Q_i}^* \in \bbQ^n$ be such that $\abs{ x_{Q_i} - x_{Q_i}^* } < \frac{\epsilon}{2^{(i+1)} p_{Q_i} }$. We then have
+    \begin{equation}
+        \begin{aligned}
+            \abs{ \sum_{Q \in \scrQ_m} f(x_Q)\mu(Q) - \sum_{Q \in \scrQ_m} f(x_Q^*)p_Q }
+            &\leq \abs{ \sum_{Q \in \scrQ_m} f(x_Q)\mu(Q) - \sum_{Q \in \scrQ_m} f(x_Q)p_Q }\\
+            &\hspace{20pt} + \abs{ \sum_{Q \in \scrQ_m} f(x_Q)p_Q - \sum_{Q \in \scrQ_m} f(x_Q^*)p_Q } \\
+            &\leq \sum_{Q \in \scrQ_m} f(x_Q) \abs{ \mu(Q) - p_Q }
+                + \sum_{Q \in \scrQ_m} \abs{ f(x_Q) - f(x_Q^*) }p_Q \\
+            &\leq \norm{f}_\infty \sum_{i=0}^\infty \frac{\epsilon}{2^{i+1}}
+                + \sum_{Q \in \scrQ_m} \abs{ x_Q - x_Q^* }p_Q \\
+            &\leq \norm{f}_\infty \epsilon + \sum_{i=0}^\infty \frac{\epsilon}{2^{i+1} p_{Q_i}} p_{Q_i} \\
+            &= \epsilon(1 + \norm{f}_\infty).
+            \end{aligned}
+    \end{equation}
+    for all Lipschitz $f$ with compact support and with Lipschitz constant at most 1. 
+    
+    For each $Q \in \widetilde{\scrQ}_m$, set $y_Q^* := \frac{x_Q^*}{N+1} \in \bbQ^n \cap B(0,1)$. Then 
+    \begin{equation}
+        \begin{aligned}
+            \sum_{Q \in \widetilde{\scrQ}_m} p_Q \delta_{x_Q^*} 
+            &= \sum_{Q \in \widetilde{\scrQ}_m} p_Q \delta_{Ny_Q^*} \\
+            &= \left( \sum_{Q \in \widetilde{\scrQ}_m} p_Q \delta_{y_Q^*} \right)_{0,N^{-1}} \\
+            &= \left( \sum_{Q \in \widetilde{\scrQ}_m} p_Q \right) \left( \sum_{Q \in \widetilde{\scrQ}_m} \frac{p_Q}{\sum_{Q \in \widetilde{\scrQ}_m} p_Q} \delta_{y_Q^*} \right)_{0,N^{-1}} \\
+            &=: p \nu_{0,N^{-1}}.
+        \end{aligned}
+    \end{equation}
+    Let $f \in \Lip_{\leq 1}(\bbR^d)$. By our calculations above, we have that for $m \geq m_0$ (where $m_0$ was defined in \eqref{m0definition}),
+    \begin{equation}
+        \begin{aligned}
+          \abs{ \int_{\bbR^d} f \, \d{\mu} - \int_{\bbR^d} f \, \d{(p\nu_{0,N^{-1}})} }
+          &= \abs{ \int_{\bbR^d} f \, \d{\mu} - \sum_{Q \in \widetilde{\scrQ}_m} f(x_Q^*) p_Q } \\
+          &= \abs{ \int_{\bbR^d} f \, \d{\mu} - \sum_{Q \in \scrQ_m} f(x_Q^*) p_Q } \\
+          &\leq \abs{ \int_{\bbR^d} f \, \d{\mu} - \sum_{Q \in \scrQ_m} f(x_Q)\mu(Q) } \\
+          &\hspace{20pt} + \abs{ \sum_{Q \in \scrQ_m} f(x_Q)\mu(Q) - \sum_{Q \in \scrQ_m} f(x_Q^*)p_Q } \\
+          &\leq \epsilon + \epsilon(1 + \norm{f}_\infty) \\
+          &= \epsilon(2 + \norm{f}_\infty).
+        \end{aligned}
+    \end{equation}
+    By construction, $\nu$ is an element of $\scrS$. Since $\epsilon > 0$ was arbitrary, we are done.
+
+    Because of this and lemma \ref{lem:tangent_measure_properties}, it suffices to find a measure $\mu$ such that $\scrS \subseteq \Tan(\mu,p)$ for $\mu$-a.e. $p \in \bbR^d$. Indeed, lemma \ref{lem:tangent_measure_properties} parts (a) and (b) mean the set $\{ c\nu_{0,r} : c,r>0 \}$ is contained in $\Tan(\mu,p)$, and by the above analysis, this means $\Tan(\mu,p)$ is dense in $\scrM(\bbR^d)$. By part (c) of lemma \ref{lem:tangent_measure_properties}, we infer that $\Tan(\mu,p)$ is all of $\scrM(\bbR^d)$ for $\mu$-a.e. $p \in \bbR^d$. 
+
+    Note that $\scrS$ is a countable set. Index the elements $\widetilde{\nu}_i$ of $\scrS$ by $i \in \bbN$.
+    Define the sequence $(i_k)_{k \in \bbN \cup \{0\}}$ by 
+    \begin{equation}
+        \begin{aligned}
+            i_0 &= 0; \\
+            i_k &= k - \frac{1}{2}n(n+1) \text{ for } k \in \left[ \frac{1}{2}n(n+1), \frac{1}{2}(n+1)(n+2) \right), n \in \bbN.
+        \end{aligned}
+    \end{equation}
+    That is, $i_k$ is the sequence $(1,1,2,1,2,3,1,2,3,4,\dots)$. If $k_n = \frac{1}{2}n(n+1)$ for $n \in \bbN \cup \{0\}$, then $i_{k_n} = 1$. More generally for $m \in \bbN$, define
+    \begin{equation}
+        k_m(n) = \frac{1}{2}(n+m-1)(n+m) + (m-1) \text{ for } n \geq 0.
+    \end{equation}
+    Then $k_m(n) = m$ for $n \geq 0$. We set $\nu_k := \widetilde{\nu}_{i_k}$. It follows that every element of $\scrS$ occurs infinitely many times in the sequence $(\nu_k)$. In particular, $\nu_{k_m(n)} = \widetilde{\nu}_m$ for all $n \geq m-1$.
+
+    For each $k \in \bbN$, we write 
+    \begin{equation}
+        \nu_k = \alpha_k(0) \delta_0 + \sum_{j = 1}^{N_k} \alpha_k(x_{k,j}) \delta_{x_{k,j}}.
+    \end{equation}
+    For each $k \in \bbN$, define $\Omega_k := \{0,x_{k,1},\dots,x_{k,N_k}\}$. Each $\alpha_k$ can be interpreted as the probability mass function for the measure $\nu_k$ on $(\Omega_k, 2^{\Omega_k})$. We then set $\Omega := \prod_{k=1}^\infty \Omega_k$. Consider the $\sigma$-algebra $\scrA$ on $\Omega$ generated by the \textit{cylinder sets} of the form $\eta \vert_j = \{(\eta_1,\dots,\eta_j)\} \times \prod_{k=j+1}^\infty \{ x_{k,1},\dots,x_{k,N_k} \}$ for $\eta \in \Omega$, and define a probability measure $\alpha$ on $(\Omega, \scrA)$ by 
+    \begin{equation}
+        \alpha(\eta \vert_j) := \prod_{k=1}^j \alpha_k(\eta_k).
+    \end{equation}
+    That is, $(\Omega, \scrA, \alpha)$ is the product space $\prod_{k=1}^\infty (\Omega_k, 2^{\Omega_k}, \alpha_k)$.
+
+    \begin{figure} 
+        \begin{tikzpicture}
+            %\draw[help lines] (0,0) grid (13,4);
+
+            \foreach \j in {1,...,3}
+            {
+                \node at (2*\j - 1,.7) {$\Omega_\j$};
+                \foreach \i in {1,...,30}
+                {
+                    \pgfmathsetmacro\radius{.8*rnd}
+                    \draw[fill=red] (2*\j - 1,2) ++ (rnd*360:\radius) circle(0.05);
+                }
+            }
+            \foreach \i in {1,2,3}
+            {
+                \draw[fill] (6,2) ++ (\i / 4,0) circle (0.03);
+            }
+            \draw[->,thick] (7,2) ++ (.1,.1) to [out=30, in=150] (8.9,2.1);
+            \node at (8,2.7) {$f$};
+
+            \coordinate (thebigone) at (11,2);
+            \newsavebox{\cloud}
+            \savebox{\cloud}
+            {
+                \foreach \i in {1,...,15}
+                { 
+                    \pgfmathsetmacro\radius{.6*rnd}
+                    \draw[fill=green] (0,0) circle (0.05);
+                    \draw[fill=purple] (rnd*360:\radius) circle(0.05*1/3);
+                }
+            }
+            \foreach \i in {1,...,30}
+            {
+                \pgfmathsetmacro\radius{1.8*rnd}
+                \draw[fill=purple] (thebigone) ++ (rnd*360:\radius) node {\usebox{\cloud}};
+            }
+ 
+        \end{tikzpicture}
+        \caption{Mapping the product space $(\Omega,\scrA,\alpha)$ into $B(0,1)$.}
+        \label{fig:oneilPushforwardMap}
+    \end{figure}
+     
+    For each $k \in \bbN$, define 
+    \begin{equation}
+        \sigma_k := \min\set{ \abs{x - y} : x,y \in \Omega_k, x \neq y }.
+    \end{equation}
+    Inductively define the sequence $r_k$ by choosing $r_0 > 1$, and defining $r_k := \frac{r_0^{k}}{\sigma_k} r_{k-1}$.
+    Define $f \colon \Omega \to B(0,1)$ by
+    \begin{equation}
+        f(\eta) := \sum_{k=1}^\infty \frac{\eta_k}{r_k}
+    \end{equation}
+    See figure \ref{fig:oneilPushforwardMap}. We set $\mu := f_* \alpha$ to be the pushforward measure of $\alpha$ by $f$ on the space $(\bbR^d, \scrB(\bbR^d))$. Our aim is to choose the $r_k$ so that as we zoom in to $\mu$-a.e. point in $B(0,1)$, we go through the sequence $\Omega_k$. In particular, we'd like the sequences $k_m$ to provide us with the different rates of zooming in.
+
+    Given $m \in \bbN$, define
+    \begin{equation}
+        V_m := \{ \eta \in \Omega : \eta_{k_m(n)} = 0 \text{ i.o. in } n \}.
+    \end{equation}
+    That is, $V_m$ is the event of choosing the point $0$ infinitely often whenever $\nu_k = \widetilde{\nu}_m$.
+    Now, since $\alpha(\eta_{k_m(n)} = 0) = \alpha_{k_m(n)}(0)$ is positive and constant with varying $n$, we have that 
+    \begin{equation}
+        \sum_{n=0}^\infty \alpha(\eta_{k_m(n)} = 0) = \infty.
+    \end{equation}
+    Since the events $\{ \eta_{k_m(n)} = 0 \}$ are independent, we conclude by the Borel-Cantelli lemma that $\alpha(V_m) = 1$. In other words, $\mu(f(V_m)) = 1$. Define $V = \bigcap_{m \in \bbN} V_m$ to be the event of selecting $0$ infinitely often along the whole sequence. By countability, $\alpha(V) = 1$.
+
+    We will show that $\scrS \subseteq \Tan(\mu,p)$ for all $p \in f(V)$. Fix $p \in f(V)$, and write $p = f(\pi) = \sum_{k=1}^\infty \frac{\pi}{r_k}$ for some $\pi \in V$. Fix $m \in \bbN$, and let $n_j \in \bbN$ be a sequence with $n_j \rightarrow \infty$, and with $\pi_{k_m(n_j)} = 0$ for all $j$. This is possible by definition of $V$. Fix $\phi \in \Lip_{\leq 1}(\bbR^d)$. The proof will be concluded by lemma \ref{lem:equivalentDefinitionOfWeak*Convergence} once we show $\int_{\bbR^d} c_j \phi \; \d\mu_{\overline{x},s_j} \rightarrow \int_{\bbR^d} \phi \; \d\nu_m$ for some appropriate choice of $c_j$ and $s_j$. 
+    
+    Define the set $\Omega^{(j)} := \set{ \eta \in \Omega : \eta_k = \pi_k \text{ for } k = 1,\dots,k_m(n_j)-1 }$, and let $c_j = \alpha(\Omega^{(j)})^{-1}$. Also let $s_j = 1/r_{k_m(n_j)}$. We have
+    \begin{equation}
+        \int_{\bbR^d} \phi \; \d(c_j\mu_{\overline{x},s_j}) = c_j \int_{\bbR^d} \phi\parens{\frac{x - \overline{x}}{s_j}} \; \d\mu(x)
+                                                            = c_j \int_{\Omega} \phi\parens{r_{k_m(n_j)} \sum_{k=1}^\infty \frac{\eta_k - \pi_k}{r_k}} \; \d\alpha(\eta).
+    \end{equation}
+    We also have 
+    \begin{equation}
+        \int_{\bbR^d} \phi \; \d\nu_m = \int_{\Omega_{k_m(n_j)}} \phi \; \d\nu_m = \int_\Omega \phi(\eta_{k_m(n_j)}) \; \d\alpha(\eta) 
+        = c_j \int_{\Omega^{(j)}} \phi(\eta_{k_m(n_j)}) \; \d\alpha(\eta),
+    \end{equation}
+    where the last equality comes from the fact that the functions (random variables in this context) $\bbone_{\Omega^{(j)}}$ and $\eta \mapsto \phi(\eta_{k_m(n_j)})$ are independent.
+
+    We would like to show, at least for $j$ large enough, that
+    \begin{equation} \label{eq:restrictingAnIntegral}
+        \int_{\Omega} \phi\parens{r_{k_m(n_j)} \sum_{k=1}^\infty \frac{\eta_k - \pi_k}{r_k}} \; \d\alpha(\eta) 
+        = \int_{\Omega^{(j)}} \phi\parens{r_{k_m(n_j)} \sum_{k=1}^\infty \frac{\eta_k - \pi_k}{r_k}} \; \d\alpha(\eta),
+    \end{equation}
+    where $\Omega^{(j)} := \set{ \eta \in \Omega : \eta_k = \pi_k \text{ for } k = 1,\dots,k_m(n_j)-1 }$. Indeed, suppose this were true, and let $\eta$ be in this set. Then
+    \begin{equation}
+        \abs{ \eta_{k_m(n_j)} - r_{k_m(n_j)} \sum_{k=1}^\infty \frac{\eta_k - \pi_k}{r_k} } \leq  \sum_{k=k_m(n_j)+1}^\infty \frac{\abs{\eta_k - \pi_k}}{r_k}
+        \leq \sum_{k=k_m(n_j)}^\infty \frac{1}{r_k},
+    \end{equation}
+    since all $\eta_k$ and $\pi_k$ are contained in $B(0,1)$, and $\pi_{k_m(n_j)} = 0$ by assumption. Since $\phi$ is Lipschitz with constant at most 1, this estimate implies
+    \begin{equation} \begin{aligned}
+        &\abs{ \int_{\bbR^d} \phi \; \d(c_j \mu_{\overline{x},s_j}) - \int_{\bbR^d} \phi \; \d\nu_m } \\
+        &\quad = \abs{ c_j \int_{\Omega^{(j)}} \phi\parens{r_{k_m(n_j)} \sum_{k=1}^\infty \frac{\eta_k - \pi_k}{r_k}} \; \d\alpha(\eta)
+                      - c_j \int_{\Omega^{(j)}} \phi(\eta_{k_m(n_j)}) \; \d\alpha(\eta) } \\
+        &\quad \leq c_j \int_{\Omega^{(j)}} \sum_{k=k_m(n_j)} \frac{1}{r_k} \; \d\alpha \\
+        &\quad = \sum_{k = k_m(n_j)}^\infty \frac{1}{r_k} \\
+        &\quad \rightarrow 0,
+    \end{aligned} \end{equation}
+    noting that $\sum_{k=1}^\infty \frac{1}{r_k}$ certainly converges since $r_k$ increases very quickly.
+
+    It remains to check (\ref{eq:restrictingAnIntegral}). Suppose $\eta \in \Omega \setminus \Omega^{(j)}$, and let $K < k_m(n_j)$ be the smallest integer with $\eta_K \neq \pi_K$. Let $R > 0$ be such that $\supp{\phi} \subseteq B(0,R)$. We have {\color{red} finish this. in particular, choose appropriate $r_k$}
+\end{proof}
+
+\subsection{Extensions and Conclusion}
+Note that definition (\ref{eq:setOfMeasuresForOneilMeasure}) of the set $\scrS$ grants us some leeway in choosing $\mu$. Indeed, rather than taking $x_i \in \bbQ^d \cap B(0,1)$, we could ask that they come from a dense subset of another open ball, and the same proof would carry on over verbatim. One might wonder how restrictive the condition $\Tan(\mu,x_0) = \scrM(\bbR^d)$ actually is. All our examples in section 1 certainly didn't satisfy this, and it even took us a lot of work to show the existence of even one of these measures. As it turns out, this is not so restrictive at all. Tuomas Sahlsten in [Tangent Measures of Typical Measures,Tuomas Sahlsten,Real Analysis Exchange,Vol. 40, No. 1 (2014-2015), pp. 53-80] and Toby O'Neil in [A local version of the Projection Theorem and other results in Geometric Measure Theory,
+PhD Thesis, University College London, 1994] independently managed to prove the following:
+\begin{theorem} \label{thm:sahlstenTypicalMeasures}
+    For a typical $\mu \in \scrM(\bbR^d)$, we have $\Tan(\mu,x_0) = \scrM(\bbR^d)$.
+\end{theorem}
+Here, \textit{typical} means this result holds for all $\mu$ in a residual subset (a countable union of dense open sets) of $\scrM(\bbR^d)$. The proof of theorem \ref{thm:sahlstenTypicalMeasures} is effectively a much more technical version of the construction above, making use of a set $\scrS$ similar to the above, and also explicitly defining the residual subset $\scrR \subseteq \scrM(\bbR^d)$.
+
+{\color{red} hey billy can you use zorn's lemma to prove the o'neil theorem? i.e. say $\mu \prec \nu$ if there exists $N \subseteq \bbR^d$ with $\mu(N) = \nu(N) = 0$ and $\Tan(\mu,p) \subseteq \Tan(\nu,p)$ for all $p \in \bbR^d \setminus N$ then blah blah upper bound blah blah maximal element}
