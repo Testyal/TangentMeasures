@@ -1,0 +1,2 @@
+# TangentMeasures
+This project contains most of the work for the author's Master's dissertation. The dissertation itself can be found at `Report.pdf`. Within the dissertation, figure 8 was generated with the help of the `plotg` function in `preissMeasureConstructionFunctions.py`. A draft for the dissertation can be found at `Project/Report.pdf` containing some red *finish me* text, and a small number of, uh, interesting pictures.
